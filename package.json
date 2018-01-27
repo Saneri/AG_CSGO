@@ -1,0 +1,17 @@
+{
+	"name": "AG_CSGO",
+	"version": "0.0.1",
+	"description": "A CS:GO matchmaking bot for the members of Aalto Gamers.",
+	"main": "bot.js",
+	"author": "Saneri",
+	"dependencies": {
+		"cassandra-driver": "^3.3.0",
+		"debug": "^3.1.0",
+		"discord.io": "^2.5.3",
+		"discord.js": "^11.3.0",
+		"mongodb": "^3.0.1",
+		"mysql": "^2.15.0",
+		"trueskill": "0.0.2",
+		"winston": "^3.0.0-rc1"
+	}
+}

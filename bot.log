@@ -1,0 +1,54 @@
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !newplayer testi {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !newplayer testi {}
+error: ER_DUP_ENTRY: Duplicate entry '<@138215352977850368>' for key 'PRIMARY' {"code":"ER_DUP_ENTRY","errno":1062,"sqlMessage":"Duplicate entry '<@138215352977850368>' for key 'PRIMARY'","sqlState":"23000","index":0,"sql":"INSERT INTO players (name, ign, rating, decaying) VALUES ('<@138215352977850368>', 'testi', 500, 0)"}
+info: !newplayer saneri {}
+error: ER_DUP_ENTRY: Duplicate entry '<@138215352977850368>' for key 'PRIMARY' {"code":"ER_DUP_ENTRY","errno":1062,"sqlMessage":"Duplicate entry '<@138215352977850368>' for key 'PRIMARY'","sqlState":"23000","index":0,"sql":"INSERT INTO players (name, ign, rating, decaying) VALUES ('<@138215352977850368>', 'saneri', 500, 0)"}
+info: !newplayer saneri {}
+error: ER_DUP_ENTRY: Duplicate entry '<@138215352977850368>' for key 'PRIMARY' {"code":"ER_DUP_ENTRY","errno":1062,"sqlMessage":"Duplicate entry '<@138215352977850368>' for key 'PRIMARY'","sqlState":"23000","index":0,"sql":"INSERT INTO players (name, ign, rating, decaying) VALUES ('<@138215352977850368>', 'saneri', 500, 0)"}
+info: !newplayer saneri {}
+error: ER_DUP_ENTRY: Duplicate entry '<@138215352977850368>' for key 'PRIMARY' {"code":"ER_DUP_ENTRY","errno":1062,"sqlMessage":"Duplicate entry '<@138215352977850368>' for key 'PRIMARY'","sqlState":"23000","index":0,"sql":"INSERT INTO players (name, ign, rating, decaying) VALUES ('<@138215352977850368>', 'saneri', 500, 0)"}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !newplayer saneri {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !joinqueue {}
+error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=<@138215352977850368>' at line 1 {"code":"ER_PARSE_ERROR","errno":1064,"sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=<@138215352977850368>' at line 1","sqlState":"42000","index":0,"sql":"SELECT name FROM players WHERE name=<@138215352977850368>"}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !joinqueue {}
+error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=<@138215352977850368>' at line 1 {"code":"ER_PARSE_ERROR","errno":1064,"sqlMessage":"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=<@138215352977850368>' at line 1","sqlState":"42000","index":0,"sql":"SELECT name FROM players WHERE name=<@138215352977850368>"}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !joinqueue {}
+error: ER_DUP_ENTRY: Duplicate entry '<@138215352977850368>' for key 'PRIMARY' {"code":"ER_DUP_ENTRY","errno":1062,"sqlMessage":"Duplicate entry '<@138215352977850368>' for key 'PRIMARY'","sqlState":"23000","index":0,"sql":"INSERT INTO players (name, ign, rating, decaying) VALUES ('<@138215352977850368>', 'undefined', 500, 0)"}
+info: !queue {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !joinqueue {}
+error: ER_DUP_ENTRY: Duplicate entry '<@138215352977850368>' for key 'PRIMARY' {"code":"ER_DUP_ENTRY","errno":1062,"sqlMessage":"Duplicate entry '<@138215352977850368>' for key 'PRIMARY'","sqlState":"23000","index":0,"sql":"INSERT INTO players (name, ign, rating, decaying) VALUES ('<@138215352977850368>', 'undefined', 500, 0)"}
+info: !queue {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !joinqueue {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !joinqueue {}
+info: !joinqueue {}
+info: !queue {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !joinqueue {}
+info: !queue {}
