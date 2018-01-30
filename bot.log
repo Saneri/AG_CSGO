@@ -52,3 +52,154 @@ info: Bot is ready. {}
 info: Succesfully connected to mySQL server. {}
 info: !joinqueue {}
 info: !queue {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: Bot is ready. {}
+error: connect ECONNREFUSED 127.0.0.1:3306 {"code":"ECONNREFUSED","errno":"ECONNREFUSED","syscall":"connect","address":"127.0.0.1","port":3306,"fatal":true}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !joinqueue {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !joinqueue {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !joinqueue {}
+info: saneri has been added to the ladder! {}
+info: !joinqueue {}
+info: !leavequeue {}
+info: !queue {}
+info: !joinqueue {}
+info: !queue {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !commands {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !help {}
+info: !commands {}
+info: !joinqueue {}
+info: !queue {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !help {}
+info: !commands {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !commands {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !commands {}
+info: !commands {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !commands {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !commands {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !commands {}
+info: !commands {}
+info: !commands {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !commands {}
+info: !commands {}
+info: !commands {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !commands {}
+info: !ladder {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !Ladder {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !LADDER {}
+info: !rating {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !RATING {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !rating {}
+info: !ladder {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !ladder {}
+info: !rating {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !rating {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !rating {}
+info: !rating {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !rating {}
+info: !rating {}
+info: !joinladder {}
+info: !joinqueue {}
+info: !leavequeue {}
+info: !leavequeue {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !joinqueue {}
+info: !queue {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !joinqueue {}
+info: !queue {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !ladder {}
+info: !ladder {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !help {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !help {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !help {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !help {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !help {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !commands {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !help {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !help {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !help {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !ladder {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !ladder {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !ladder {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !rating {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !rating {}
+info: Bot is ready. {}
+info: Succesfully connected to mySQL server. {}
+info: !rating {}
