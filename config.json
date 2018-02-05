@@ -1,0 +1,5 @@
+{
+	"maxQueueSize": 10,
+	"defaultRating": 1000,
+	"numberOfRounds": 30
+}

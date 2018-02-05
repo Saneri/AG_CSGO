@@ -1,18 +1,28 @@
-
+// libraries
+const fs = require("fs");
 const discord = require("discord.js");
 const mysql = require("mysql");
 const winston = require("winston");
-const auth = require("./auth.json");
 const trueskill = require("trueskill");
+const chokidar = require("chokidar");
+
+// configuration
+const auth = require("./auth.json");
+const config = require("./config.json");
+
+// bot
 const bot = new discord.Client();
 
-const maxQueueSize = 10;
-const defaultRating = 1000;
+//global variables
+const maxQueueSize = config.maxQueueSize;
+const defaultRating = config.defaultRating;
+const numberOfRounds = config.numberOfRounds;
 var matchRunning = false;
 var ladderChanged = true;
 var queue = [];
 var ladder = [];
 
+// init winston to log into log file
 const logger = winston.createLogger({
 	level: "info",
 	format: winston.format.simple(),
@@ -21,14 +31,16 @@ const logger = winston.createLogger({
 	]
 });
 
+// Initialize database info
 var con = mysql.createConnection({
-	host: "localhost",
-	user: "aaltogamers",
-	password: "aaltogamers",
-	database: "database"
+	host: auth.db.host,
+	user: auth.db.user,
+	password: auth.db.password,
+	database: auth.db.database
 });
 
 bot.on("ready", () => {
+	// Create connection to the ladder database
 	con.connect(function(err) {
 		  if (err) {
 			  logger.error(err);
@@ -39,7 +51,11 @@ bot.on("ready", () => {
 	logger.info('Bot is ready.');
 });
 
-// Chat commands
+
+///////////////////
+// Chat commands //
+///////////////////
+
 bot.on("message", async message => {
 	if (message.author.bot) return;
 	if (message.content.substring(0,1) !== '!') return;
@@ -53,7 +69,7 @@ bot.on("message", async message => {
 		// !joinqueue
 		// Join queue if it's not full. Also add player to ladder if not found.
 		case "joinqueue":
-			commandJoinqueue(message);
+			commandJoinqueue(message, args);
 			break;
 		
 		// !leavequeue
@@ -86,39 +102,51 @@ bot.on("message", async message => {
 			commandHelp(message);
 			break;
 		
+		// for testing purposes
+		case "run":
+			matchRunning = true;
+			break;
 	}
 });
 
-function commandJoinqueue(message) {
-	var sql = `SELECT name FROM players WHERE name='${message.author}'`;
-	con.query(sql, function(err, result) {
-		if (err) {
-			logger.error(err);
-			message.channel.send("Database error. Contact admin");
+function commandJoinqueue(message, args) {
+	addPlayer(message).then(function(result){
+		if (!queue.includes(message.author)) {
+			queue.push(message.author);
+			message.channel.send(`${message.author} has joined the queue.`);
 		} else {
-			// Add player to database if not found
-			if (result.length === 0) {
-				var addplayer = `INSERT INTO players (name,ign,rating,decaying) VALUES ('${message.author}', '${args.shift()}',${defaultRating} , 0)`;
-				con.query(addplayer, function(err) { //,result
-					if (err) {
-						message.channel.send(`Adding ${message.author} to database failed.`);
-						logger.error(err);
-					} else {
-						message.channel.send(`${message.author} has been added to the ladder!`)
-						logger.info(`${message.author.username} has been added to the ladder!`)
-						ladderChanged = true;
-					}	
-				});
-			}
-			// finally add player to queue
-			if (!queue.includes(message.author)) {
-				queue.push(message.author);
-				message.channel.send(`${message.author} has joined the queue.`);
+			message.channel.send(`${message.author} is already in the queue.`);
+		}
+		if (queue.length === maxQueueSize) startMatch();
+	}).catch(function(err){
+		message.channel.send("Database error. Contact admin");
+		logger.error(err);
+	});
+}
+
+function addPlayer(message) {
+	return new Promise(function(resolve, reject){
+		var sql = `SELECT name FROM players WHERE name='${message.author}'`;
+		con.query(sql, function(err, result) {
+			if (err) {
+				return reject(err);
 			} else {
-				message.channel.send(`${message.author} is already in the queue.`);
+				// Add player to database if not found
+				if (result.length === 0) {
+					var addplayer = `INSERT INTO players (name,ign,rating,decaying) VALUES ('${message.author}', '${args.shift()}',${defaultRating} , 0)`;
+					con.query(addplayer, function(err) {
+						if (err) {
+							return reject(err);
+						} else {
+							message.channel.send(`${message.author} has been added to the ladder!`)
+							logger.info(`${message.author.username} has been added to the ladder!`)
+							ladderChanged = true;
+						}	
+					});
+				}
+				return resolve(result);
 			}
-			if (queue.length === maxQueueSize) startMatch();
-		}  
+		});
 	});
 }
 
@@ -168,6 +196,7 @@ function commandRating(message) {
 		}
 	});
 }
+
 function commandHelp(message) {
 	message.author.send({embed: {
 	    color: 3447003,
@@ -194,43 +223,48 @@ function commandHelp(message) {
 
 function commandLadder(message) {
 	// Query new ladder if ladder has changed
-	if (ladderChanged === true) {
-		var sql = "SELECT name, rating FROM players";
-		con.query(sql, function(err, result) {
-			if (err) {
-				logger.error(err);
-				message.channel.send("Database error. Contact admin");
-			} else {
-				ladder.length = 0;
-				for (var i=0, len=result.length; i<len; i++) {
-					ladder.push({name: result[i].name, rating: result[i].rating});
+	updateLadder().then(function(){
+		// Print ladder
+		var msg = "";
+		if (ladder.length != 0) {
+				msg = "====== Ladder ====== \nRank | Name        | Rating \n";
+				for (var i=0, len=ladder.length; i<len; i++) {
+					msg += `${i+1}.		${ladder[i].name}	: ${ladder[i].rating} \n`;
 				}
-				ladder.sort(compare);
-				ladderChanged = false;
-			}
+		} else {
+			msg = "Ladder has no players. Be the first one to join by typing '!joinqueue'!";
+		}
+		if (message.channel.type === "text") {
+			message.channel.send(msg);
+		} else {
+			message.author.send(msg);
+		}
+		// Can be done with embed messages for cleaner result
+	});
+}
+
+function updateLadder() {
+	if (ladderChanged) {
+		return new Promise(function(resolve, reject) {
+			var sql = "SELECT name, rating FROM players";
+			con.query(sql, function(err, result) {
+				if (err) {
+					logger.error(err);
+					message.channel.send("Database error. Contact admin");
+					return reject(err);
+				} else {
+					ladder.length = 0;
+					for (var i=0, len=result.length; i<len; i++) {
+						ladder.push({name: result[i].name, rating: result[i].rating});
+					}
+					ladder.sort(compare);
+					ladderChanged = false;
+					logger.info("Ladder has been updated.")
+					return resolve(result);
+				}
+			});
 		});
 	}
-	// Finally print ladder
-	var msg = "";
-	if (ladder.length != 0) {
-			msg = "====== Ladder ====== \nRank | Name        | Rating \n";
-			for (var i=0, len=ladder.length; i<len; i++) {
-				msg += `${i+1}.		${ladder[i].name}	: ${ladder[i].rating} \n`;
-			}
-	} else {
-		msg = "Ladder has no players. Be the first one to join by typing '!joinqueue'!";
-	}
-	if (message.channel.type === "text") {
-		message.channel.send(msg);
-	} else {
-		message.author.send(msg);
-	}
-//	message.author.send({embed: {
-//	    color: 3205000,
-//	    title: "====== Ladder ======",
-//	    description: `${msg}`
-//	  }
-//	});
 }
 
 //sorting helper function for ladder
@@ -242,9 +276,9 @@ function compare(a, b) {
 	return 0;
 }
 
-/////////////////////
-// END OF COMMANDS //
-/////////////////////
+//////////////////////////
+// END OF CHAT COMMANDS //
+//////////////////////////
 
 
 function startMatch() {
@@ -256,6 +290,31 @@ function endMatch() {
 	//calculate new ratings, give match summary to channel, check if queue is already full
 	logger.info("\n --- Match ended ---");
 	ladderChanged = true;
+}
+
+// Watch for backup files to determine if the match has ended
+var watcher = chokidar.watch('.', {ignored: /(^|[\/\\])\../}).on('add', (path) => {
+	  if (matchRunning && path.substr(path.length - 7) === "_03.txt") {
+		  // throws error if opened too fast after creating the file
+		  sleep(100).then(() => {
+			  fs.readFile(path, function read(err, data) {
+				  if (err) {
+					  logger.error(err);
+					  throw err;
+				  }
+				  console.log(data);
+				  for (var i=0, len=data.length; i<len; i++) {
+					  console.log(data[i]);
+				  }
+			  });
+		  });
+		  // parse file to json
+		  // endMatch();
+	  }
+});
+
+function sleep(time) {
+	  return new Promise((resolve) => setTimeout(resolve, time));
 }
 
 // Start bot
